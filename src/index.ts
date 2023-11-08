@@ -2,8 +2,7 @@ import { Probot } from "probot";
 
 export = (app: Probot) => {
   app.on("issues.labeled", async (context) => {
-    const issueLabelNames = context.payload.issue.labels?.map((label) => label.name)
-    if (issueLabelNames && issueLabelNames.includes("analysis-requested")) {
+    if (context.payload.label!.name === "analysis-requested") {
       const parts = context.payload.issue.title.split('/')
       const repositoryNameWithOwner = `${parts[0]}/${parts[1]}`
       const language = parts[2]
